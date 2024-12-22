@@ -23,21 +23,21 @@ Terraform-prosjekt som oppretter en VM med webtjeneste og 2 VM med database i la
 
 1. **NEDLASTNING**:
 - Last ned prosjektet som zip og pakk ut.
-2. **ENDRINGER**
+2. **HVIS DU VIL GJØRE ENDRINGER**
 - Gjør nødvendige endringer i **`variables.tfvars`**
-- Endringer som må gjøres manuelt:
+- Endringer som MÅ gjøres manuelt dersom man endrer **`variables.tfvars`**:
   - Linje 6 og 7 i **`modules/db-install/scripts/install_mariadb.sh`** må ha lik verdi som `admin_username` og `admin_password` i **`terraform.tfvars`**
   - Linje 64 og 65 i **`modules/db-install/scripts/playbook.yml`** må ha lik verdi som `admin_username` og `admin_password` i **`terraform.tfvars`**
 3. **KJØRE TERRAFORM VIA POWERSHELL**
 - Det kan hende at man ikke klarer å logge inn med `az login`, men da følger man instruksjonene som dukker opp i Powershell.
-  ```powershell
-  cd <stien til Terraform-mappen>
-  az login
-  terraform init
-  terraform plan -out main.tfplan
-  terraform apply main.tfplan
-  ```
+- 1. Åpne powershell
+  2. az login
+  3. cd <"stien til Terraform-mappen"> 
+  4. terraform init -upgrade
+  5. terraform plan -out main.tfplan
+  6. terraform apply main.tfplan
 - Det kan hende at man får en feilmelding relatert til MariaDB installasjon, men da kan man slette ressursene i Azure og prøve å kjøre Terraform på nytt.
+- Det kan være at man får beskjed at storage accounten finnes allerede selv om det ligger 0 storage accounts på kontoen. Da må du inn i terraform.tfvars og endre på "install_script_url".
 4. **BENYTTE PROSJEKTET**
 - Skriv den offentlige IP-adressen som står i `web_vm_public_ip = "<IP-adresse>"` som dukker opp i outputs i en nettleser for å få vise nettsiden som har kontakt med databasen.
   - Det kan hende at det tar litt tid før nettsiden som henter data fra databasen er ferdig satt opp.

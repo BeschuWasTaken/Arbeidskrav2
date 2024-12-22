@@ -1,4 +1,4 @@
-# TerWebDB: Terraform-prosjekt for webserver tilkoblet til database i Azure
+# Arbeidskrav2: Terraform-prosjekt for webserver tilkoblet til database i Azure
 
 Terraform-prosjekt som oppretter en VM med webtjeneste og 2 VM med database i lastbalansering
 
